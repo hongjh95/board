@@ -1,5 +1,6 @@
 package com.board.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,6 +23,12 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.selectList(namespace + ".list");
 	}
 
+	// 게시물 총 갯수
+	@Override
+	public int count() throws Exception {
+		return sql.selectOne(namespace + ".count");
+	}
+
 	@Override
 	public void write(BoardVO vo) throws Exception {
 		sql.insert(namespace + ".write", vo);
@@ -31,12 +38,12 @@ public class BoardDAOImpl implements BoardDAO {
 	public BoardVO view(int bno) throws Exception {
 		return sql.selectOne(namespace + ".view", bno);
 	}
-	
+
 	@Override
 	public void modify(BoardVO vo) throws Exception {
-	 sql.update(namespace + ".modify", vo);
+		sql.update(namespace + ".modify", vo);
 	}
-	
+
 	@Override
 	public void delete(int bno) throws Exception {
 		sql.delete(namespace + ".delete", bno);
@@ -45,7 +52,31 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void view_update(int bno) throws Exception {
 		sql.update(namespace + ".view_update", bno);
-		
+
+	}
+
+	// 게시물 목록 + 페이징
+	@Override
+	public List listPage(int displayPost, int postNum) throws Exception {
+
+		HashMap data = new HashMap();
+
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+
+		return sql.selectList(namespace + ".listPage", data);
+	}
+
+	// 게시물 목록 +검색
+	@Override
+	public List<BoardVO> listSearch(String searchType, String keyword) throws Exception {
+
+		HashMap<String, Object> data = new HashMap<String, Object>();
+
+		data.put("searchType", searchType);
+		data.put("keyword", keyword);
+
+		return sql.selectList(namespace + ".listPageSearch", data);
 	}
 
 }

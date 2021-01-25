@@ -7,15 +7,23 @@
 	<!-- 게시물 목록 -->
 	<select id="list" resultType="com.board.domain.BoardVO">
 		select
-		bno, title, content, writer, regDate, viewCnt
-		from tbl_board
+			ROW_NUMBER() OVER(order by regDate) as 'number',
+			a.bno, a.title, a.content, a.writer, a.regDate, a.viewCnt
+		from
+			tbl_board a
+		order by number desc
+	</select>
+	
+	<!-- 게시물 총 갯수 -->
+	<select id="count" resultType="int">
+		select count(bno) from tbl_board
 	</select>
 	
 	<!-- 게시물 작성 -->
 	<insert id="write" parameterType="com.board.domain.BoardVO">
 		insert into
 		tbl_board(title, content, writer, regDate)
-		values(#{title}, #{content}, #{writer},SUBSTRING(CONVERT(CHAR(8), GETDATE(), 2),1,8) )
+		values(#{title}, #{content}, #{writer},CONVERT(CHAR(8), GETDATE(), 112))
 	</insert>
 	
 	<!-- 게시물 조회 -->
@@ -56,5 +64,47 @@
 		from tbl_board
 		where bno = #{bno}
 	</delete>
+	
+	<!-- 게시물 목록 + 페이징 -->
+	<select id="listPage" parameterType="hashMap" resultType="com.board.domain.BoardVO">
+	
+		select
+			ROW_NUMBER() OVER(order by regDate) as 'number',
+			a.bno, a.title, a.content, a.writer, a.regDate, a.viewCnt
+		from
+			tbl_board a
+		order by
+			number desc
+		OFFSET (#{postNum}-1)*(#{displayPost}) row
+		fetch next #{displayPost} row only
+	</select>
+	
+	<!-- 게시물 목록 + 페이징 -->
+	<select id="listSearch" parameterType="hashMap" resultType="com.board.domain.BoardVO">
+
+		select
+			ROW_NUMBER() OVER(order by regDate) as 'number',
+			a.bno, a.title, a.content, a.writer, a.regDate, a.viewCnt
+		from
+			tbl_board a
+	<if test='searchType.equals("title")'>
+		WHERE title LIKE concat('%', #{keyword}, '%')
+	</if>
+
+	<if test='searchType.equals("content")'>
+		WHERE content LIKE concat('%', #{keyword}, '%')
+	</if>
+
+	<if test='searchType.equals("title_content")'>
+		WHERE title LIKE concat('%', #{keyword}, '%')
+		or content LIKE concat('%', #{keyword}, '%')
+	</if>
+
+	<if test='searchType.equals("writer")'>
+		WHERE writer LIKE concat('%', #{keyword}, '%')
+	</if>
+		order by
+			number desc
+	</select>
 
 </mapper>

@@ -4,12 +4,18 @@ import java.util.Date;
 
 public class BoardVO {
 
+	private int number;
 	private int bno;
 	private String title;
 	private String content;
 	private String writer;
 	private String regDate;
 	private int viewCnt;
+	
+	
+	public int getNumber() {
+		return number;
+	}
 	public int getBno() {
 		return bno;
 	}

@@ -21,6 +21,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public int count() throws Exception {
+		return dao.count();
+	}
+
+	@Override
 	public void write(BoardVO vo) throws Exception {
 		dao.write(vo);
 	}
@@ -30,14 +35,25 @@ public class BoardServiceImpl implements BoardService {
 		dao.view_update(bno);
 		return dao.view(bno);
 	}
-	
+
 	@Override
 	public void modify(BoardVO vo) throws Exception {
 		dao.modify(vo);
 	}
-	
+
 	@Override
 	public void delete(int bno) throws Exception {
 		dao.delete(bno);
+	}
+
+	@Override
+	public List listPage(int displayPost, int postNum) throws Exception {
+		return dao.listPage(displayPost, postNum);
+	}
+
+	// 게시물 목록 + 페이징 + 검색
+	@Override
+	public List<BoardVO> listSearch(String searchType, String keyword) throws Exception {
+		return dao.listSearch(searchType, keyword);
 	}
 }
