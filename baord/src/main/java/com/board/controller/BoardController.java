@@ -72,7 +72,7 @@ public class BoardController {
 	public String getDelete(@RequestParam("bno") int bno) throws Exception {
 		service.delete(bno);  
 
-		return "redirect:/board/list";
+		return "redirect:/board/listSearch?";
 	}
 	
 	// 게시물 목록 + 페이징 추가

@@ -5,49 +5,53 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>insert title here</title>
+<title>게시판 목록</title>
 </head>
 <body>
-<div id="nav"><%@ include file="../include/nav.jsp" %></div>
 
-	<table>
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-				<th>조회수</th>
-			</tr>
-		</thead>
+	<div align="center" style="margin: 0 auto;">
+		<div id="nav" align="left"><%@ include file="../include/nav.jsp"%></div>
 
-		<tbody>
-			<c:forEach items="${list}" var="list">
-				<tr>
-					<td>${list.number}</td>
-					<td><a href="/board/view?bno=${list.bno}">${list.title}</a></td>
-					<td>${list.writer}</td>
-					<td>
-						<fmt:parseDate value="${list.regDate}" var="dateValue" pattern="yyyyMMdd"/>
-						<fmt:formatDate value="${dateValue}" pattern="yy.MM.dd"/>
-					</td>
-					<td>${list.viewCnt}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
+		<div align="center" style="margin: 0 auto;">
+			<div align="right" style="width: 1000px;">
+				<select name="searchType">
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="title_content">제목+내용</option>
+					<option value="writer">작성자</option>
+				</select> <input type="text" name="keyword" onkeyup="noSpaceForm(this);"
+					onchange="noSpaceForm2(this);" />
 
-	</table>
-	<div>
-		<select name="searchType">
-			<option value="title">제목</option>
-			<option value="content">내용</option>
-			<option value="title_content">제목+내용</option>
-			<option value="writer">작성자</option>
-		</select> <input type="text" name="keyword" />
+				<button id="searchBtn" type="button">검색</button>
+			</div>
 
-		<button id="searchBtn" type="button">검색</button>
+			<table style="margin: 0 auto; text-align: center;width: 1000px;border: 1px solid #bcbcbc;">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<c:forEach items="${list}" var="list">
+						<tr style="border: 1px solid #bcbcbc;">
+							<td style="border: 1px solid #bcbcbc;">${list.number}</td>
+							<td style="border: 1px solid #bcbcbc;" onclick="location.href='/board/view?bno=${list.bno}'" style="cursor: pointer;">${list.title}</td>
+							<td style="border: 1px solid #bcbcbc;">${list.writer}</td>
+							<td style="border: 1px solid #bcbcbc;"><fmt:parseDate value="${list.regDate}" var="dateValue" pattern="yyyyMMdd" /> <fmt:formatDate value="${dateValue}" pattern="yy.MM.dd" /></td>
+							<td style="border: 1px solid #bcbcbc;">${list.viewCnt}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+
+			</table>
+		</div>
+
 	</div>
-
 	<script>
 		document.getElementById("searchBtn").onclick = function() {
 
@@ -56,9 +60,22 @@
 
 			console.log(searchType)
 			console.log(keyword)
-			
-			location.href = "/board/listSearch?" + "&searchType=" + searchType + "&keyword=" + keyword;
+
+			location.href = "/board/listSearch?" + "&searchType=" + searchType
+					+ "&keyword=" + keyword;
 		};
+		// 첫 글자 공백만 사용 못 하게
+		function noSpaceForm(obj) {
+			if (obj.value == " ") // 공백 체크
+			{
+				alert("검색에는 공백을 사용할 수 없습니다.\n공백 제거됩니다.");
+				obj.focus();
+				obj.value = obj.value.replace(' ', ''); // 공백 제거
+				return false;
+			}
+		}
 	</script>
+
+
 </body>
 </html>
