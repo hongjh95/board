@@ -3,6 +3,7 @@ package com.board.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,15 +41,19 @@ public class BoardController {
 	public String postWirte(BoardVO vo) throws Exception{
 		service.write(vo);
 		
-		return "redirect:/board/list";
+		return "redirect:/board/listSearch";
 	}
 	
 	// 게시물 조회
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
 		BoardVO vo = service.view(bno);
+		if (vo != null) {
+			model.addAttribute("view",vo);
+		}else {
+			getListSearch(model, "", "");
+		}
 		
-		model.addAttribute("view",vo);
 	}
 	
 	// 게시물 수정
@@ -103,6 +108,7 @@ public class BoardController {
 		
 		List list = null;
 		list = service.listSearch(searchType, keyword);
+		
 		model.addAttribute("list", list);
 	}
 }
