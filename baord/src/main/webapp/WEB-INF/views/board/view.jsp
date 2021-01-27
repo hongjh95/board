@@ -11,12 +11,12 @@
 
 	<form method="post">
 
-		<label>제목</label> <input type="text" name="title" value="${view.title}"/><br/>
-		<label>작성자</label> <input type="text" name="writer" value="${view.writer}"/><br/>
-		<label>내용</label> <textarea cols="50" rows="5" name="content">${view.content}</textarea> <br/>
+		<label>제목 : </label> ${view.title}<br/>
+		<label>작성자 : </label> ${view.writer}<br/>
+		<label>내용 : </label> ${view.content}<br/>
 
 		<div>
-		<a href="/board/list">게시물 리스트</a>
+		<a href="/board/listSearch?">게시물 리스트</a>
 		</div>	
 
 		<div>
