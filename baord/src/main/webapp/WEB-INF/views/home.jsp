@@ -9,12 +9,7 @@
 <h1>
 	Hello world!  
 </h1>
-
-<P>  The time on the server is ${serverTime}. </P>
-
-<p><a href="/board/listSearch?">게시물 목록</a></p>
-<p><a href="/board/write">게시글 작성</a></p>
-
+<jsp:forward page="/board/listSearch?"></jsp:forward>
 
 </body>
 </html>

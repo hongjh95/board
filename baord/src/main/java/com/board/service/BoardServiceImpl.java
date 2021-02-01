@@ -46,10 +46,7 @@ public class BoardServiceImpl implements BoardService {
 		dao.delete(bno);
 	}
 
-	@Override
-	public List listPage(int displayPost, int postNum) throws Exception {
-		return dao.listPage(displayPost, postNum);
-	}
+
 
 	// 게시물 목록 + 페이징 + 검색
 	@Override

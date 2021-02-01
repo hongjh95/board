@@ -46,16 +46,17 @@ public class BoardController {
 	
 	// 게시물 조회
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
+	public String getView(@RequestParam("bno") int bno, Model model) throws Exception {
 		BoardVO vo = service.view(bno);
 		if (vo != null) {
 			model.addAttribute("view",vo);
+			return null;
 		}else {
-			getListSearch(model, "", "");
+			return "redirect:/board/listSearch?";
 		}
-		
 	}
 	
+
 	// 게시물 수정
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void getModify(@RequestParam("bno") int bno, Model model) throws Exception {
@@ -80,28 +81,7 @@ public class BoardController {
 		return "redirect:/board/listSearch?";
 	}
 	
-	// 게시물 목록 + 페이징 추가
-	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
-	public void getListPage(Model model, @RequestParam("num") int num) throws Exception {
 
-		// 게시물 총 갯수
-		int count = service.count();
-
-		// 한 페이지에 출력할 게시물 갯수
-		int postNum = 10;
-
-		// 하단 페이징 번호 ([ 게시물 총 갯수 ÷ 한 페이지에 출력할 갯수 ]의 올림)
-		int pageNum = (int) Math.ceil((double) count / postNum);
-
-		// 출력할 게시물
-		int displayPost = (num - 1) * postNum;
-
-		List list = null;
-		list = service.listPage(displayPost, postNum);
-		model.addAttribute("list", list);
-		model.addAttribute("pageNum", pageNum);
-	}
-	
 	// 게시물 목록 + 검색
 	@RequestMapping(value = "/listSearch", method = RequestMethod.GET)
 	public void getListSearch(Model model, @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,@RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) throws Exception {

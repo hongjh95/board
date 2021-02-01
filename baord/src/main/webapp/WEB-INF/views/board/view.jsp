@@ -11,23 +11,23 @@
 <div id="nav"><%@ include file="../include/nav.jsp" %></div>
 	<div align="center" style="margin: 0 auto;">
 		<form method="post">
-			<if(${view.title}){}/>
+
 			<table style="border: 1px solid #bcbcbc;width: 1010px;">
 				<tr>
-					<td style="border: 1px solid #bcbcbc;width: 80px;">제목</td>
-					<td style="border: 1px solid #bcbcbc;">${view.title}</td>
+					<td style="border: 1px solid #bcbcbc;width: 80px;text-align: center;">제목</td>
+					<td style="border: 1px solid #bcbcbc;text-indent: 20px;">${view.title}</td>
 				</tr>
 				<tr>
-					<td style="border: 1px solid #bcbcbc;">작성자</td>
-					<td style="border: 1px solid #bcbcbc;">${view.writer}</td>
+					<td style="border: 1px solid #bcbcbc;text-align: center;">작성자</td>
+					<td style="border: 1px solid #bcbcbc;text-indent: 20px;">${view.writer}</td>
 				</tr>
 				<tr>
-					<td style="border: 1px solid #bcbcbc;">작성일자</td>
-					<td style="border: 1px solid #bcbcbc;"><fmt:parseDate value="${view.regDate}" var="dateValue" pattern="yyyyMMdd" /> <fmt:formatDate value="${dateValue}" pattern="yy.MM.dd" /></td>
+					<td style="border: 1px solid #bcbcbc;text-align: center;">작성일자</td>
+					<td style="border: 1px solid #bcbcbc;text-indent: 20px;"><fmt:parseDate value="${view.regDate}" var="dateValue" pattern="yyyyMMdd" /> <fmt:formatDate value="${dateValue}" pattern="yy.MM.dd" /></td>
 				</tr>
 				<tr>
-					<td style="border: 1px solid #bcbcbc;height: 300px">내용</td>
-					<td style="border: 1px solid #bcbcbc;width: 920px;">${view.content}</td>
+					<td style="border: 1px solid #bcbcbc;height: 300px;text-align: center;">내용</td>
+					<td style="border: 1px solid #bcbcbc;width: 920px;text-indent: 20px;">${view.content}</td>
 				</tr>
 
 			</table>
@@ -39,5 +39,6 @@
 
 		</form>
 	</div>
+
 </body>
 </html>

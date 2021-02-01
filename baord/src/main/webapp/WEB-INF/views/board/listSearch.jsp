@@ -28,11 +28,11 @@
 			<table style="margin: 0 auto; text-align: center;width: 1000px;border: 1px solid #bcbcbc;">
 				<thead>
 					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>작성일</th>
-						<th>조회수</th>
+						<th style="width: 38px;">번호</th>
+						<th style="width: 509px;">제목</th>
+						<th style="width: 308px;">작성자</th>
+						<th style="width: 73px;">작성일</th>
+						<th style="width: 58px;">조회수</th>
 					</tr>
 				</thead>
 

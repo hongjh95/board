@@ -8,15 +8,30 @@
 </head>
 <body>
 <div id="nav"><%@ include file="../include/nav.jsp" %></div>
-
+<div align="center" style="margin: 0 auto;">
 	<form method="post">
 
-		<label>제목</label> <input type="text" name="title" value="${view.title}"/><br/>
-		<label>작성자</label> <input type="text" name="writer" value="${view.writer}"/><br/>
-		<label>내용</label> <textarea cols="50" rows="5" name="content">${view.content}</textarea> <br/>
+		<table style="border: 1px solid #bcbcbc; width: 1010px;">
+			<tr>
+				<td style="border: 1px solid #bcbcbc; width: 80px; text-align: center;">제목</td>
+				<td style="border: 1px solid #bcbcbc;"><input type="text" name="title" value="${view.title}" maxlength="50" style="width: 99%;" required /></td>
+			</tr>
+			<tr>
+				<td style="border: 1px solid #bcbcbc; text-align: center;">작성자</td>
+				<td style="border: 1px solid #bcbcbc;"><input type="text" name="writer" value="${view.writer}" maxlength="30" style="width: 99%;" required/></td>
+			</tr>
+	
+			<tr>
+				<td style="border: 1px solid #bcbcbc; height: 300px; text-align: center;">내용</td>
+				<td style="border: 1px solid #bcbcbc; width: 920px;"><textarea cols="50" rows="5" name="content" required style="width: 99%;height: 300px;">${view.content}</textarea></td>
+			</tr>
+	
+		</table>
 
-		<button type="submit">완료</button>
-
+		<div align="right" style="width: 1000px;">
+			<button type="submit" style="width: 100px;">수정 완료</button>
+		</div>
 	</form>
+</div>
 </body>
 </html>

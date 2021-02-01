@@ -56,17 +56,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	}
 
-	// 게시물 목록 + 페이징
-	@Override
-	public List listPage(int displayPost, int postNum) throws Exception {
 
-		HashMap data = new HashMap();
-
-		data.put("displayPost", displayPost);
-		data.put("postNum", postNum);
-
-		return sql.selectList(namespace + ".listPage", data);
-	}
 
 	// 게시물 목록 +검색
 	@Override
